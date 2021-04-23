@@ -21,7 +21,7 @@ C=3 # the tree difrent flowers wee have
 
 
 
-def training_linear_classifiers(training_set,iterations,alpha,training_const,features):
+def training_linear_classifiers(training_set,alpha,training_const,features):
     W = np.zeros((C, features + 1))
     MSE_store =[]
     W_store =[]
@@ -57,7 +57,14 @@ def training_linear_classifiers(training_set,iterations,alpha,training_const,fea
 
 
 def verification_linear_classifiers(W,test_set,testing_const,features):
+    """
 
+    :param W: The weithed matrix trained in training_linear_training_linear_classifiers
+    :param test_set: The verification set used to control the predictions produced
+    :param testing_const: length of the rows in the test set
+    :param features:
+    :return:
+    """
 
     x_add_ones = np.ones((5, int(len(test_set[0]))))
     x_k = np.ones((features +1,1))
@@ -91,10 +98,31 @@ def verification_linear_classifiers(W,test_set,testing_const,features):
 
     disp.plot()
 
+    return error_rate, predictions_list,real_list
+
+
+
+############## Excecution of tasks ##################3
+
+
+"""
+To execute the tasks belowe change the desierd tasks to 1.
+"""
+
+task_1A = 0
+task_1B = 0
+task_1C = 0
+task_1D = 0
+
+task_2A = 0
+task_2B_2_features =0
+task_2B_1_feature =0
+
 
 
 ####### TASK 1A #######
-training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
+if(task_1A or task_1B):
+    training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
 
 ####### TASK 1B #######
 
@@ -102,7 +130,7 @@ training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TT
 alpha = 0.008
 MSE_dictionary = {}
 
-if(False):
+if(task_1B):
     while(alpha>= 0.002):
         print("\nTraining with alpha:",alpha)
         W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, alpha, training_const=30, features=4)
@@ -114,9 +142,9 @@ if(False):
 
 
 ####### TASK 1C######
-if(False):
+if(task_1C):
     print("TASK 1C")
-    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.005, training_const=30, features=4)
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.004, training_const=30, features=4)
     ### TEsting on testset##
     verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
     ##Testing on training set##
@@ -124,14 +152,14 @@ if(False):
 
 
 ###### TASK 1D ######
-if(False):
+if(task_1D):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.4)
 
 
     print("TASK 1D")
 
 
-    W_last, W_list, MSE_list = training_linear_classifiers(test_set, 10000, 0.006, training_const=20, features=4)
+    W_last, W_list, MSE_list = training_linear_classifiers(test_set, 0.004, training_const=20, features=4)
 
     ### Testing on testset##
     print("testing on: Test set")
@@ -143,7 +171,7 @@ if(False):
 #####################################################################3
 
 #### TASK 2A#####
-if(False):
+if(task_2A):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
     plot_histogram(training_set,test_set)
 
@@ -153,11 +181,11 @@ if(False):
     test_set = np.delete(test_set, 1, 0)
 
 
-    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=3)
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=3)
     verification_linear_classifiers(W_last,test_set,testing_const=20,features=3)
 
 ##### TASK 2B ####
-if(True):
+if(task_2B_2_features):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
     training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
     test_set = np.delete(test_set, 0, 0)
@@ -165,10 +193,10 @@ if(True):
     training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
     test_set = np.delete(test_set, 0, 0)
 
-    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=2)
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=2)
     verification_linear_classifiers(W_last, test_set, testing_const=20, features=2)
 
-if(False):
+if(task_2B_1_feature):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
     training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
     test_set = np.delete(test_set, 0, 0)
@@ -179,7 +207,7 @@ if(False):
     training_set = np.delete(training_set, 0, 0)  # deleting the sepal length from
     test_set = np.delete(test_set, 0, 0)
 
-    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=1)
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=1)
     verification_linear_classifiers(W_last, test_set, testing_const=20, features=1)
 
 

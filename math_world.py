@@ -1,17 +1,21 @@
 """
-All the math fuctions used in the main.py scriptis defined hear
+All the math fuctions used in the main.py script is defined hear
 """
 import numpy as np
 
 #####Constants######
 C=3 # the tree different flowers wee have
-#features = 4
 
-#testing_const = 20
 
 ####################
 
 def sigmoid(x_k,W):
+    """
+    Implementation of eq. (20)
+    :param x_k: a (3,1) vector
+    :param W: The weighted matrix
+    :return g_k: Returns the the result off the equation
+    """
     z_i = np.matmul(W,x_k)
 
     g_k = 1/(1+np.exp(-z_i))
@@ -22,10 +26,13 @@ def sigmoid(x_k,W):
 
 def get_MSE_gradient(data_set_training, W,training_const,features):
     """
-
-    :param data_set_training: The dataset the MSE is to be calculated on
-    :param W: W the matirix we will traing
-    :return: The gradient og the MSE
+    Calulates the MSE gradient given in eq. (22) and
+    Calculates the MSE given in eq. (19)
+    :param data_set_training: The training part of the dataset
+    :param W: the weighted matrix
+    :param training_const: length ow each row in the data_traning_set ndarray
+    :param features: Numbers of features
+    :return: MSE_gradient(eq.(22)) and the MSE (eq.(19))
     """
     MSE_gradient = np.zeros((C, features + 1))
     MSE = 0
@@ -54,6 +61,7 @@ def get_MSE_gradient(data_set_training, W,training_const,features):
             gradient_z_k = g_k*(1 - g_k)
             temp = gradient_gk_MSE*gradient_z_k
 
+            #### MSE gradient calculation ####
             MSE_gradient += np.matmul(temp, x_k.T)
 
             ####MSE calculation#####

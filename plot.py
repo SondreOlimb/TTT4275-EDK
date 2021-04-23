@@ -16,4 +16,69 @@ def plot_MSE(MSE_dictionary):
 def plot_histogram(training_set,test_set):
     size_info =["sepal length", "sepal width", "petal length", "petal width"]
 
+    total_set = [[],[],[],[]]
+    for i in range(4):
+
+        training=training_set[i].tolist()
+
+        test = test_set[i].tolist()
+        tot = training[0:30] +test[0:20] +training[30:60] +test[20:40] + training[60:90] +test[40:60]
+
+        total_set[i] = tot
+
+
+
+
+
+
+
+
+
+
+    fig, axs = plt.subplots(nrows=2, ncols=2)
+
+    axs[0, 0].hist(total_set[0][0:50], 20, density=True, histtype='stepfilled', facecolor='r',alpha=0.75,label ="setosa")
+    axs[0, 0].hist(total_set[0][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,
+                   label="versicolor")
+    axs[0, 0].hist(total_set[0][100: 150], 20, density=True, histtype='stepfilled', facecolor='b', alpha=0.75,
+                   label="virginica")
+
+    axs[0, 0].set_title('Sepal length')
+    axs[0, 0].legend()
+
+    ###Histogram:Sepal Width
+
+
+
+    axs[0, 1].hist(total_set[1][0:50], 20, density=True, histtype='stepfilled', facecolor='r', alpha=0.75,
+                   label="setosa")
+    axs[0, 1].hist(total_set[1][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,
+                   label="versicolor")
+    axs[0, 1].hist(total_set[1][100:150], 20, density=True, histtype='stepfilled', facecolor='b', alpha=0.75,
+                   label="virginica")
+    axs[0, 1].set_title('sepal width')
+    axs[0,1].legend()
+    ###Histogram:Petal length
+
+    axs[1, 0].hist(total_set[2][0:50], 20, density=True, histtype='stepfilled', facecolor='r', alpha=0.75,
+                   label="setosa")
+    axs[1, 0].hist(total_set[2][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,
+                   label="versicolor")
+    axs[1, 0].hist(total_set[2][100:150], 20, density=True, histtype='stepfilled', facecolor='b', alpha=0.75,
+                   label="virginica")
+
+    axs[1, 0].set_title('petal length')
+    axs[1,0].legend()
+
+    ###Histogram:petal width
+    axs[1, 1].hist(total_set[3][0:50], 20, density=True, histtype='stepfilled', facecolor='r', alpha=0.75,
+                   label="setosa")
+    axs[1, 1].hist(total_set[3][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,
+                   label="versicolor")
+    axs[1, 1].hist(total_set[3][100:150], 20, density=True, histtype='stepfilled', facecolor='b', alpha=0.75,
+                   label="virginica")
+    axs[1, 1].set_title("petal width")
+    axs[1, 1].legend()
+
+    fig.tight_layout()
 

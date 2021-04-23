@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 ### Internal files ###
 from Split import split_training_and_test
 from math_world import get_MSE_gradient
-from plot import plot_MSE
+from plot import plot_MSE,plot_histogram
 
 
 #### Contants #####
@@ -114,35 +114,73 @@ if(False):
 
 
 ####### TASK 1C######
-print("TASK 1C")
-W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.005, training_const=30, features=4)
-### TEsting on testset##
-verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
-##Testing on training set##
-verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
+if(False):
+    print("TASK 1C")
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.005, training_const=30, features=4)
+    ### TEsting on testset##
+    verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
+    ##Testing on training set##
+    verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
 
 
 ###### TASK 1D ######
-training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.4)
+if(False):
+    training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.4)
 
 
-print("TASK 1D")
+    print("TASK 1D")
 
 
-W_last, W_list, MSE_list = training_linear_classifiers(test_set, 10000, 0.006, training_const=20, features=4)
+    W_last, W_list, MSE_list = training_linear_classifiers(test_set, 10000, 0.006, training_const=20, features=4)
 
-### Testing on testset##
-print("testing on: Test set")
-verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
-##Testing on training set##
-print("testing on: Training set")
-verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
+    ### Testing on testset##
+    print("testing on: Test set")
+    verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
+    ##Testing on training set##
+    print("testing on: Training set")
+    verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
+
+#####################################################################3
+
+#### TASK 2A#####
+if(False):
+    training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
+    plot_histogram(training_set,test_set)
 
 
 
+    training_set = np.delete(training_set, 1, 0)#deleting the sepal length from
+    test_set = np.delete(test_set, 1, 0)
 
 
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=3)
+    verification_linear_classifiers(W_last,test_set,testing_const=20,features=3)
 
+##### TASK 2B ####
+if(True):
+    training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    test_set = np.delete(test_set, 0, 0)
+
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    test_set = np.delete(test_set, 0, 0)
+
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=2)
+    verification_linear_classifiers(W_last, test_set, testing_const=20, features=2)
+
+if(False):
+    training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    test_set = np.delete(test_set, 0, 0)
+
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    test_set = np.delete(test_set, 0, 0)
+
+    training_set = np.delete(training_set, 0, 0)  # deleting the sepal length from
+    test_set = np.delete(test_set, 0, 0)
+
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.006, training_const=30, features=1)
+    verification_linear_classifiers(W_last, test_set, testing_const=20, features=1)
 
 
 plt.show()

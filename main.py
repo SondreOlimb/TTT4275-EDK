@@ -1,9 +1,13 @@
-from Split import split_training_and_test
-from math_world import get_MSE_gradient
+### External libraries ###
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import plot_confusion_matrix,ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+
+### Internal files ###
+from Split import split_training_and_test
+from math_world import get_MSE_gradient
+from plot import plot_MSE
 
 
 #### Contants #####
@@ -25,11 +29,11 @@ def training_linear_classifiers(training_set,iterations,alpha,training_const,fea
     print("training started")
     count = 0
     MSE_delta = 1
-    while(MSE_delta >0.001):
-        count +=1
-        grad_MSE,MSE = get_MSE_gradient(training_set, W, training_const, features)
+    while(MSE_delta >0.00001):
 
-        MSE_delta =np.abs( (MSE_store[-1] - MSE[0][0])/2)
+        grad_MSE,MSE = get_MSE_gradient(training_set, W, training_const, features)
+        if(count > 0):
+            MSE_delta =np.abs( (MSE_store[-1] - MSE[0][0])/2)
         MSE_store.append(MSE[0][0])
         W -= alpha * grad_MSE
         W_store.append(W)
@@ -39,13 +43,12 @@ def training_linear_classifiers(training_set,iterations,alpha,training_const,fea
             print("last computed MSE was",MSE[0][0])
             return
 
-
+        count += 1
 
 
     print("Traning finished. iterations:",count)
 
-    print(MSE_store)
-    plt.plot(MSE_store)
+
 
     return W,W_store,MSE_store
 
@@ -66,7 +69,7 @@ def verification_linear_classifiers(W,test_set,testing_const,features):
         x_add_ones[i] = test_set[i]
 
 
-    for j in range(60):
+    for j in range(testing_const*3):
         for i in range((features+1)):
             x_k[i] = x_add_ones[i, j]
 
@@ -75,24 +78,71 @@ def verification_linear_classifiers(W,test_set,testing_const,features):
         predictions_list.append(predicted_flower)
 
 
-    for clas in range(C):
-        flower =[0,1,2]
-        for item in range(20):
-            p_f = predictions_list[int(clas*20+item)]
-            dif = p_f-flower[clas]
-            print("real:", flower[clas] ,"predicted:", p_f, "diff:",dif  )
+    error_rate = 0
+    for i in range(testing_const*3):
+        if real_list[i] != predictions_list[i]:
+
+            error_rate +=1
+
+
+    print("\nError rate:",round(error_rate/(testing_const*3)*100,1),"%")
     cm = confusion_matrix(real_list, predictions_list)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=["setosa","versicolor","virginica"])
+
     disp.plot()
-    plt.show()
 
 
-####### TASK 1B #######
+
+####### TASK 1A #######
 training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
 
-W_traind, W_list, MSE_list =training_linear_classifiers(training_set,10000,0.01,training_const=30,features=4)
+####### TASK 1B #######
+
+### Tuning alpha
+alpha = 0.008
+MSE_dictionary = {}
+
+if(False):
+    while(alpha>= 0.002):
+        print("\nTraining with alpha:",alpha)
+        W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, alpha, training_const=30, features=4)
+        MSE_dictionary[str(alpha)] = MSE_list
+        alpha -= 0.002
+    plot_MSE(MSE_dictionary)
+
+
 
 
 ####### TASK 1C######
-#verification_linear_classifiers(W_traind,test_set,testing_const=20,features=4)
+print("TASK 1C")
+W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, 0.005, training_const=30, features=4)
+### TEsting on testset##
+verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
+##Testing on training set##
+verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
 
+
+###### TASK 1D ######
+training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.4)
+
+
+print("TASK 1D")
+
+
+W_last, W_list, MSE_list = training_linear_classifiers(test_set, 10000, 0.006, training_const=20, features=4)
+
+### Testing on testset##
+print("testing on: Test set")
+verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
+##Testing on training set##
+print("testing on: Training set")
+verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
+
+
+
+
+
+
+
+
+plt.show()

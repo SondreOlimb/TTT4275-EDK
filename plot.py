@@ -43,7 +43,7 @@ def plot_histogram(training_set,test_set):
         total_set[i] = tot
 
 
-    fig, axs = plt.subplots(nrows=2, ncols=2)
+    fig, axs = plt.subplots(nrows=1, ncols=2)
 
     axs[0, 0].hist(total_set[0][0:50], 20, density=True, histtype='stepfilled', facecolor='r',alpha=0.75,label ="setosa")
     axs[0, 0].hist(total_set[0][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,

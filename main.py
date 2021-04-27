@@ -110,11 +110,11 @@ To execute the tasks belowe change the desierd tasks to 1.
 """
 
 task_1A = 1
-task_1B = 0
+task_1B = 0 #Tuning of alpha
 task_1C = 0 #test 1
-task_1D = 0 #test 2
+task_1D = 1 #test 2
 
-task_2A = 1 #test 3
+task_2A = 0 #test 3
 task_2B_2_features =0 #test 4
 task_2B_1_feature =0 #test 5
 5

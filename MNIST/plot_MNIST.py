@@ -6,6 +6,12 @@ from PIL import Image
 
 
 def display_image(images,number_to_plot):
+    """
+    Plot an image from a vector.
+    :param images:
+    :param number_to_plot:
+    :return:
+    """
 
     for count,images in enumerate(images):
         test_image = np.reshape(images[2],(28,28))

@@ -17,8 +17,9 @@ def display_image(images,number_to_plot):
         ax2.set_title(images[1][0])
         title = 'Real number:'+str(images[0][0])
         fig.suptitle(title)
-        plt.plot()
-        plt.show()
+        plt.draw()
+
+
         if(count == number_to_plot):
             return 0
 

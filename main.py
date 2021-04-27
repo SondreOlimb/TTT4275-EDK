@@ -109,15 +109,15 @@ def verification_linear_classifiers(W,test_set,testing_const,features):
 To execute the tasks belowe change the desierd tasks to 1.
 """
 
-task_1A = 0
+task_1A = 1
 task_1B = 0
-task_1C = 0
-task_1D = 0
+task_1C = 0 #test 1
+task_1D = 0 #test 2
 
-task_2A = 0
-task_2B_2_features =0
-task_2B_1_feature =0
-
+task_2A = 1 #test 3
+task_2B_2_features =0 #test 4
+task_2B_1_feature =0 #test 5
+5
 
 
 ####### TASK 1A #######
@@ -133,7 +133,7 @@ MSE_dictionary = {}
 if(task_1B):
     while(alpha>= 0.002):
         print("\nTraining with alpha:",alpha)
-        W_last, W_list, MSE_list = training_linear_classifiers(training_set, 10000, alpha, training_const=30, features=4)
+        W_last, W_list, MSE_list = training_linear_classifiers(training_set, alpha, training_const=30, features=4)
         MSE_dictionary[str(alpha)] = MSE_list
         alpha -= 0.002
     plot_MSE(MSE_dictionary)
@@ -144,10 +144,12 @@ if(task_1B):
 ####### TASK 1C######
 if(task_1C):
     print("TASK 1C")
-    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.004, training_const=30, features=4)
+    W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=4)
     ### TEsting on testset##
+    print("Verifying with test set")
     verification_linear_classifiers(W_last,test_set,testing_const=20,features=4)
     ##Testing on training set##
+    print("Verifying with training")
     verification_linear_classifiers(W_last,training_set,testing_const=30,features=4)
 
 
@@ -159,7 +161,7 @@ if(task_1D):
     print("TASK 1D")
 
 
-    W_last, W_list, MSE_list = training_linear_classifiers(test_set, 0.004, training_const=20, features=4)
+    W_last, W_list, MSE_list = training_linear_classifiers(test_set, 0.006, training_const=20, features=4)
 
     ### Testing on testset##
     print("testing on: Test set")
@@ -177,35 +179,43 @@ if(task_2A):
 
 
 
-    training_set = np.delete(training_set, 1, 0)#deleting the sepal length from
+    training_set = np.delete(training_set, 1, 0)#deleting the sepal width from
     test_set = np.delete(test_set, 1, 0)
 
 
     W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=3)
+
+    print("testing on: Test set")
     verification_linear_classifiers(W_last,test_set,testing_const=20,features=3)
+
+    print("testing on: Training set")
+    verification_linear_classifiers(W_last, training_set, testing_const=30, features=3)
+
 
 ##### TASK 2B ####
 if(task_2B_2_features):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
-    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length
     test_set = np.delete(test_set, 0, 0)
 
-    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal width
     test_set = np.delete(test_set, 0, 0)
+    print(training_set.shape)
 
     W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=2)
     verification_linear_classifiers(W_last, test_set, testing_const=20, features=2)
 
 if(task_2B_1_feature):
     training_set, test_set = split_training_and_test("Iris_TTT4275/class_1","Iris_TTT4275/class_2", "Iris_TTT4275/class_3", 0.6)
-    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal length
     test_set = np.delete(test_set, 0, 0)
 
-    training_set = np.delete(training_set, 0, 0)#deleting the sepal length from
+    training_set = np.delete(training_set, 0, 0)#deleting the sepal width
     test_set = np.delete(test_set, 0, 0)
 
-    training_set = np.delete(training_set, 0, 0)  # deleting the sepal length from
+    training_set = np.delete(training_set, 0, 0)#deleting the petal length
     test_set = np.delete(test_set, 0, 0)
+    print(training_set.shape)
 
     W_last, W_list, MSE_list = training_linear_classifiers(training_set, 0.006, training_const=30, features=1)
     verification_linear_classifiers(W_last, test_set, testing_const=20, features=1)

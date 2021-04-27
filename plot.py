@@ -43,7 +43,7 @@ def plot_histogram(training_set,test_set):
         total_set[i] = tot
 
 
-    fig, axs = plt.subplots(nrows=1, ncols=2)
+    fig, axs = plt.subplots(nrows=2, ncols=2)
 
     axs[0, 0].hist(total_set[0][0:50], 20, density=True, histtype='stepfilled', facecolor='r',alpha=0.75,label ="setosa")
     axs[0, 0].hist(total_set[0][50:100], 20, density=True, histtype='stepfilled', facecolor='g', alpha=0.75,
@@ -52,6 +52,9 @@ def plot_histogram(training_set,test_set):
                    label="virginica")
 
     axs[0, 0].set_title('Sepal length')
+    axs[0, 0].set_ylabel("Number")
+    axs[0, 0].set_xlabel("Length [cm]")
+
     axs[0, 0].legend()
 
     ###Histogram:Sepal Width
@@ -65,6 +68,8 @@ def plot_histogram(training_set,test_set):
     axs[0, 1].hist(total_set[1][100:150], 20, density=True, histtype='stepfilled', facecolor='b', alpha=0.75,
                    label="virginica")
     axs[0, 1].set_title('sepal width')
+    axs[0, 1].set_ylabel("Number")
+    axs[0, 1].set_xlabel("Width [cm]")
     axs[0,1].legend()
     ###Histogram:Petal length
 
@@ -76,6 +81,8 @@ def plot_histogram(training_set,test_set):
                    label="virginica")
 
     axs[1, 0].set_title('petal length')
+    axs[1, 0].set_ylabel("Number")
+    axs[1, 0].set_xlabel("Length [cm]")
     axs[1,0].legend()
 
     ###Histogram:petal width
@@ -87,6 +94,8 @@ def plot_histogram(training_set,test_set):
                    label="virginica")
     axs[1, 1].set_title("petal width")
     axs[1, 1].legend()
+    axs[1, 1].set_ylabel("Number")
+    axs[1, 1].set_xlabel("Width [cm]")
 
     fig.tight_layout()
 

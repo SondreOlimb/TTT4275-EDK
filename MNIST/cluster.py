@@ -58,7 +58,9 @@ def cluster(train_labels,train_vectors):
 
 
         print("progress:", i)
-
+        #calculate the Kmeans with the sklearn library.
+        # N_clusters is the numver of clusters to create.
+        #Random_state = 0 sets the random varibaol in the calculation for reproductivity of the resukt
         codebook = KMeans(n_clusters=64, random_state=0).fit(sliced).cluster_centers_
 
         store_clusters[i] = codebook

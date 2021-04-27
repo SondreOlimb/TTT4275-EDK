@@ -1,6 +1,5 @@
 ##Extarnal libraries
 import numpy as np
-import scipy.io
 from scipy.spatial import distance
 import time
 import datetime

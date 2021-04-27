@@ -8,7 +8,7 @@
 
     HTTPS:
     ```
-   git clone https://github.com/SondreOlimb/FagV21.git
+   git clone https://github.com/SondreOlimb/TTT4275-EDK.git
 
    ```
 

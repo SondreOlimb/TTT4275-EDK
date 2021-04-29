@@ -71,3 +71,16 @@ def get_MSE_gradient(data_set_training, W,training_const,features):
     return MSE_gradient, MSE
 
 
+
+def calculate_confusion_matrix(true_lables,predicted_lables):
+    labels = np.unique(true_lables) #finds number of classes
+    K = len(labels)
+    confussion_matrix = np.zeros((K,K)) #initilazes an   empty coffusion_matrix
+
+    for count, item in enumerate(true_lables):
+        confussion_matrix[item][predicted_lables[count]] += 1 #for every item in true_labels it finds the
+        #corespoding predictions and add 1 to that cord.
+
+    return confussion_matrix
+
+

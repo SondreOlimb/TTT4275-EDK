@@ -13,6 +13,20 @@ from plot_MNIST import display_image
 from cluster import cluster
 
 
+def calculate_confusion_matrix(true_lables,predicted_lables):
+
+
+    labels = np.unique(true_lables) #finds number of classes
+    K = len(labels)
+    confussion_matrix = np.zeros((K,K),dtype=np.int64) #initilazes an   empty coffusion_matrix
+
+    for count, item in enumerate(true_lables):
+        confussion_matrix[item[0]][predicted_lables[count]] += 1 #for every item in true_labels it finds the
+        #corespoding predictions and add 1 to that cord.
+
+    return confussion_matrix
+
+
 
 
 def K_NN_calcultaion(dist,label,K):
@@ -68,6 +82,7 @@ def K_NN_calcultaion(dist,label,K):
         if number_1_store == number_2_store: # if more then 1 label is most prevelant it checks which label is closest
             while_bool = True
 
+
             while (while_bool):
                 if dist_1_store < dist_2_store:
                     label_NN = arg_max_1
@@ -82,6 +97,7 @@ def K_NN_calcultaion(dist,label,K):
 
                 if number_1_store != number_2_store: # if ter is a third most prevalent label
                     while_bool = False
+
 
         else:
             label_NN = arg_max_1
@@ -141,9 +157,12 @@ def NN(number_of_samples_train,number_of_samples_test):
 
     display_image(false_predictions_cord,1) #plots the false prediction vector ralativ to the correct
     display_image(correct_predictions_cord, 1)#plots the correct prediction vector ralativ to the correct
-
+    prediction_lable = []
+    for i in label_store:
+        prediction_lable.append(i[0])
     #Utelise the sklearn library to find and plot the confusion matrix
-    cm = confusion_matrix(label_store, test_labels)
+    cm = calculate_confusion_matrix(true_lables=test_labels,predicted_lables=prediction_lable)
+
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
 
@@ -206,7 +225,8 @@ def NN_clustering(number_of_samples_train,number_of_samples_test):
             error += 1
 
     #Utelise the sklearn library to find and plot the confusion matrix
-    cm = confusion_matrix(label_store, test_labels)
+    cm = calculate_confusion_matrix(true_lables=test_labels, predicted_lables=label_store)
+
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
 
@@ -260,9 +280,11 @@ def K_NN(number_of_samples_train,number_of_samples_test,K):
             error += 1
 
     #Utelise the sklearn library to find and plot the confusion matrix
-    cm = confusion_matrix(label_store, test_labels)
+
+    cm = calculate_confusion_matrix(true_lables=test_labels,predicted_lables=label_store)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
+
 
 
     error_rate = error / number_of_samples_test * 100
@@ -274,12 +296,12 @@ def K_NN(number_of_samples_train,number_of_samples_test,K):
     print("Total time:", str(datetime.timedelta(seconds=total_time)))
 
 #Run the NN classification
-NN(60000,10000) #Obs this fuction wil take about 10 minutes to compute
+#NN(60000,10000) #Obs this fuction wil take about 10 minutes to compute
 
 #Run the NN calcuation with clustering
-NN_clustering(60000,10000)
+#NN_clustering(60000,10000)
 
 #run the KNN classification with clustering
-K_NN(60000,10000,3)
+K_NN(60000,10000,7)
 
 plt.show()#plots all the plots.

@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 
 ### Internal files ###
 from Split import split_training_and_test
-from math_world import get_MSE_gradient
+from math_world import get_MSE_gradient, calculate_confusion_matrix
 from plot import plot_MSE,plot_histogram
+
 
 
 #### Contants #####
@@ -33,7 +34,7 @@ def training_linear_classifiers(training_set,alpha,training_const,features):
 
         grad_MSE,MSE = get_MSE_gradient(training_set, W, training_const, features)
         if(count > 0):
-            MSE_delta =np.abs( (MSE_store[-1] - MSE[0][0])/2)
+            MSE_delta =np.abs( (MSE_store[-1] - MSE[0][0]))
         MSE_store.append(MSE[0][0])
         W -= alpha * grad_MSE
         W_store.append(W)
@@ -93,10 +94,14 @@ def verification_linear_classifiers(W,test_set,testing_const,features):
 
 
     print("\nError rate:",round(error_rate/(testing_const*3)*100,1),"%")
-    cm = confusion_matrix(real_list, predictions_list)
+
+    cm = calculate_confusion_matrix(real_list,predictions_list)
+
     disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=["setosa","versicolor","virginica"])
 
     disp.plot()
+
+
 
     return error_rate, predictions_list,real_list
 
@@ -110,9 +115,9 @@ To execute the tasks belowe change the desierd tasks to 1.
 """
 
 task_1A = 1
-task_1B = 0 #Tuning of alpha
+task_1B = 1 #Tuning of alpha
 task_1C = 0 #test 1
-task_1D = 1 #test 2
+task_1D = 0 #test 2
 
 task_2A = 0 #test 3
 task_2B_2_features =0 #test 4
